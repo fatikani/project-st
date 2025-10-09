@@ -185,7 +185,7 @@ def display_analysis_card(analysis: dict):
     
     # Create expandable card
     with st.expander(
-        f"{status_icon} {analysis['filename']} - {analysis['created_at'][:19].replace('T', ' ')}",
+        f"{status_icon} {analysis['filename']} - {analysis['created_at']}",
         expanded=False
     ):
         col1, col2 = st.columns(2)
@@ -193,9 +193,9 @@ def display_analysis_card(analysis: dict):
         with col1:
             st.markdown("**File Information**")
             st.markdown(f"Filename: `{analysis['filename']}`")
-            st.markdown(f"File Hash: `{analysis['file_hash'][:16]}...`")
-            st.markdown(f"Analysis ID: `{analysis['analysis_id'][:8]}...`")
-            st.markdown(f"Created: {analysis['created_at'][:19].replace('T', ' ')}")
+            st.markdown(f"File Hash: `{analysis['file_hash']}`")
+            st.markdown(f"Analysis ID: `{analysis['analysis_id']}`")
+            st.markdown(f"Created: {analysis['created_at']}")
         
         with col2:
             st.markdown("**Analysis Results**")

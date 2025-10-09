@@ -295,7 +295,7 @@ class StreamlitVideoComponents:
             summary_data.append({
                 "Category": "File Integrity", 
                 "Item": "SHA256 Hash", 
-                "Value": report['file_hash'][:16] + "..."
+                "Value": report['file_hash']
             })
         
         # Analysis results

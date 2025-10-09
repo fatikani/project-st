@@ -531,7 +531,7 @@ def display_analysis_results(report: Dict, filename: str):
     
     with col4:
         st.markdown('<div class="metric-card">', unsafe_allow_html=True)
-        st.metric("File Hash", f"{report['file_hash'][:8]}...")
+        st.metric("File Hash", report['file_hash'])
         st.markdown('</div>', unsafe_allow_html=True)
     
     # Detailed results
@@ -555,6 +555,59 @@ def display_analysis_results(report: Dict, filename: str):
                     st.markdown(f"• {indicator}")
             else:
                 st.success("No tampering indicators detected")
+    
+    # Complete Analysis Details
+    with st.expander("🔍 Complete Analysis Details", expanded=False):
+        st.markdown("### Full Analysis Report")
+        
+        # File Information Section
+        st.markdown("#### 📄 File Information")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown(f"**Filename:** `{filename}`")
+            st.markdown(f"**Analysis ID:** `{report.get('analysis_id', 'N/A')}`")
+            st.markdown(f"**Analysis Date:** `{report.get('timestamp', 'N/A')}`")
+        with col2:
+            st.markdown(f"**File Hash (SHA256):** `{report.get('file_hash', 'N/A')}`")
+            st.markdown(f"**File Size:** {report.get('metadata', {}).get('basic_info', {}).get('file_size', 'N/A')} bytes")
+            st.markdown(f"**Format:** {report.get('metadata', {}).get('basic_info', {}).get('format', 'N/A')}")
+        
+        # Technical Metadata
+        if 'metadata' in report and 'basic_info' in report['metadata']:
+            st.markdown("#### 🔧 Technical Metadata")
+            metadata_info = report['metadata']['basic_info']
+            tech_details = []
+            for key, value in metadata_info.items():
+                tech_details.append({
+                    "Property": key.replace('_', ' ').title(),
+                    "Value": str(value)
+                })
+            st.dataframe(pd.DataFrame(tech_details), use_container_width=True, hide_index=True)
+        
+        # Tampering Analysis
+        if 'tampering_analysis' in report:
+            st.markdown("#### 🛡️ Tampering Analysis")
+            tampering = report['tampering_analysis']
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown(f"**Tampering Probability:** {tampering.get('tampering_probability', 0):.1%}")
+                st.markdown(f"**Confidence Level:** {tampering.get('confidence', 'N/A')}")
+                st.markdown(f"**Risk Assessment:** {tampering.get('risk_level', 'N/A')}")
+            
+            with col2:
+                indicators = tampering.get('indicators', [])
+                st.markdown(f"**Indicators Found:** {len(indicators)}")
+                if indicators:
+                    st.markdown("**Detailed Indicators:**")
+                    for i, indicator in enumerate(indicators, 1):
+                        st.markdown(f"{i}. {indicator}")
+                else:
+                    st.success("✓ No tampering indicators detected")
+        
+        # Complete JSON Report
+        st.markdown("#### 📋 Complete JSON Report")
+        st.json(report)
     
     # Recommendations
     st.markdown("#### Recommendations")
@@ -585,14 +638,14 @@ def render_previous_results_page():
     st.markdown("### Your Analysis History")
     
     for analysis in analyses:
-        with st.expander(f"{analysis['filename']} - {analysis['created_at'][:19]}"):
+        with st.expander(f"{analysis['filename']} - {analysis['created_at']}"):
             col1, col2 = st.columns(2)
             
             with col1:
                 st.markdown("**File Information**")
                 st.markdown(f"Filename: {analysis['filename']}")
-                st.markdown(f"Hash: {analysis['file_hash'][:16]}...")
-                st.markdown(f"Analysis ID: {analysis['analysis_id'][:8]}...")
+                st.markdown(f"Hash: `{analysis['file_hash']}`")
+                st.markdown(f"Analysis ID: `{analysis['analysis_id']}`")
             
             with col2:
                 st.markdown("**Results Summary**")

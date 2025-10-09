@@ -195,7 +195,7 @@ def display_quick_results(metadata: Dict, file_hash: str, filename: str):
     
     with col1:
         st.markdown("#### File Integrity")
-        st.markdown(f"**SHA256 Hash:** `{file_hash[:32]}...`")
+        st.markdown(f"**SHA256 Hash:** `{file_hash}`")
         st.markdown(f"**File verified:** ✓ Hash calculated successfully")
     
     with col2:
