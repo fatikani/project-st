@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block page_title %}Upload Video Evidence{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="bi bi-cloud-upload"></i> Upload Video Evidence
+                </h6>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data" id="uploadForm">
+                    <div class="mb-3">
+                        <label for="case_number" class="form-label">Case Number</label>
+                        <input type="text" class="form-control" id="case_number" name="case_number" required>
+                        <div class="form-text">Enter the case number for this evidence.</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="video" class="form-label">Video File</label>
+                        <input type="file" class="form-control" id="video" name="video" accept=".mp4,.avi,.mov,.mkv,.wmv,.flv,.webm" required>
+                        <div class="form-text">
+                            Supported formats: MP4, AVI, MOV, MKV, WMV, FLV, WebM (Max size: 500MB)
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description (Optional)</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Brief description of the evidence..."></textarea>
+                    </div>
+                    
+                    <div class="progress mb-3" style="display: none;" id="uploadProgress">
+                        <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="button" class="btn btn-secondary me-md-2" onclick="history.back()">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="uploadBtn">
+                            <i class="bi bi-cloud-upload"></i> Upload Evidence
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card shadow mt-4">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="bi bi-info-circle"></i> Upload Guidelines
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Supported Formats:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle text-success"></i> MP4 (recommended)</li>
+                            <li><i class="bi bi-check-circle text-success"></i> AVI</li>
+                            <li><i class="bi bi-check-circle text-success"></i> MOV</li>
+                            <li><i class="bi bi-check-circle text-success"></i> MKV</li>
+                            <li><i class="bi bi-check-circle text-success"></i> WMV</li>
+                            <li><i class="bi bi-check-circle text-success"></i> FLV</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Analysis Features:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle text-success"></i> Metadata extraction</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Motion detection</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Frame analysis</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Hash verification</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Quality assessment</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Timestamp validation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info mt-3">
+                    <i class="bi bi-info-circle"></i>
+                    <strong>Note:</strong> All uploaded files are automatically analyzed for digital forensic evidence. 
+                    The analysis process may take several minutes depending on file size and complexity.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    const uploadBtn = document.getElementById('uploadBtn');
+    const progressBar = document.getElementById('uploadProgress');
+    
+    uploadBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Uploading...';
+    uploadBtn.disabled = true;
+    progressBar.style.display = 'block';
+    
+    // Simulate progress (in real implementation, this would be actual upload progress)
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 10;
+        if (progress > 90) progress = 90;
+        
+        progressBar.querySelector('.progress-bar').style.width = progress + '%';
+        
+        if (progress >= 90) {
+            clearInterval(interval);
+        }
+    }, 200);
+});
+
+// File size validation
+document.getElementById('video').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const maxSize = 500 * 1024 * 1024; // 500MB in bytes
+        if (file.size > maxSize) {
+            alert('File size exceeds 500MB limit. Please choose a smaller file.');
+            e.target.value = '';
+            return;
+        }
+        
+        // Display file info
+        const fileInfo = document.createElement('div');
+        fileInfo.className = 'alert alert-info mt-2';
+        fileInfo.innerHTML = `
+            <strong>Selected File:</strong> ${file.name}<br>
+            <strong>Size:</strong> ${(file.size / (1024 * 1024)).toFixed(2)} MB<br>
+            <strong>Type:</strong> ${file.type}
+        `;
+        
+        // Remove any existing file info
+        const existingInfo = e.target.parentNode.querySelector('.alert-info');
+        if (existingInfo) {
+            existingInfo.remove();
+        }
+        
+        e.target.parentNode.appendChild(fileInfo);
+    }
+});
+</script>
+{% endblock %}

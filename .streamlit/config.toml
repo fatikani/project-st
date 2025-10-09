@@ -1,0 +1,44 @@
+[global]
+developmentMode = false
+
+[server]
+headless = true
+runOnSave = false
+port = 8501
+enableCORS = false
+enableXsrfProtection = true
+maxUploadSize = 500
+maxMessageSize = 200
+
+[browser]
+serverAddress = "0.0.0.0"
+gatherUsageStats = false
+showErrorDetails = false
+
+[theme]
+primaryColor = "#1f77b4"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f0f2f6"
+textColor = "#262730"
+font = "sans serif"
+
+[logger]
+level = "info"
+messageFormat = "%(asctime)s %(message)s"
+
+[client]
+caching = true
+displayEnabled = true
+showErrorDetails = false
+
+[runner]
+magicEnabled = true
+installTracer = false
+fixMatplotlib = true
+
+[mapbox]
+token = ""
+
+[deprecation]
+showfileUploaderEncoding = false
+showPyplotGlobalUse = false

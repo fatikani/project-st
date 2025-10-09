@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block page_title %}Video Analysis in Progress{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="bi bi-gear"></i> Analyzing Video: {{ filename }}
+                </h6>
+            </div>
+            <div class="card-body text-center">
+                <div class="mb-4">
+                    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                
+                <h5 id="statusMessage">Initializing analysis...</h5>
+                <p class="text-muted">This process may take several minutes depending on video size and complexity.</p>
+                
+                <div class="progress mb-4">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                         role="progressbar" style="width: 0%" id="analysisProgress"></div>
+                </div>
+                
+                <div class="row text-start">
+                    <div class="col-md-6">
+                        <h6>Analysis Steps:</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" id="step1">
+                                <i class="bi bi-hourglass-split text-warning"></i> Extracting metadata
+                            </li>
+                            <li class="list-group-item" id="step2">
+                                <i class="bi bi-hourglass-split text-warning"></i> Detecting motion
+                            </li>
+                            <li class="list-group-item" id="step3">
+                                <i class="bi bi-hourglass-split text-warning"></i> Analyzing frames
+                            </li>
+                            <li class="list-group-item" id="step4">
+                                <i class="bi bi-hourglass-split text-warning"></i> Generating report
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Expected Analysis:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle text-success"></i> Video metadata</li>
+                            <li><i class="bi bi-check-circle text-success"></i> File integrity check</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Motion detection</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Frame quality assessment</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Timestamp analysis</li>
+                            <li><i class="bi bi-check-circle text-success"></i> Digital signature verification</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <button class="btn btn-secondary" onclick="history.back()">
+                        <i class="bi bi-arrow-left"></i> Go Back
+                    </button>
+                    <button class="btn btn-primary" onclick="location.reload()">
+                        <i class="bi bi-arrow-clockwise"></i> Refresh Status
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow mt-4">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="bi bi-info-circle"></i> Analysis Information
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <h6><i class="bi bi-lightbulb"></i> What happens during analysis?</h6>
+                    <p class="mb-0">
+                        Our forensic analysis engine examines your video file using advanced algorithms to extract 
+                        digital evidence, detect tampering, analyze motion patterns, and verify file integrity. 
+                        All analysis is performed securely and results are encrypted.
+                    </p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <i class="bi bi-shield-check text-success" style="font-size: 2rem;"></i>
+                        <h6 class="mt-2">Secure Processing</h6>
+                        <small class="text-muted">All data is encrypted and processed securely</small>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <i class="bi bi-cpu text-primary" style="font-size: 2rem;"></i>
+                        <h6 class="mt-2">AI-Powered Analysis</h6>
+                        <small class="text-muted">Advanced algorithms for comprehensive analysis</small>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <i class="bi bi-file-earmark-text text-info" style="font-size: 2rem;"></i>
+                        <h6 class="mt-2">Detailed Reports</h6>
+                        <small class="text-muted">Comprehensive forensic analysis reports</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let progress = 0;
+let currentStep = 1;
+const steps = ['Extracting metadata', 'Detecting motion', 'Analyzing frames', 'Generating report'];
+const evidenceId = {{ evidence_id|tojson }};
+
+function checkAnalysisStatus() {
+    fetch(`/api/analysis_status/${evidenceId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'completed') {
+                window.location.href = `/results/${evidenceId}`;
+            } else if (data.status === 'failed') {
+                document.getElementById('statusMessage').innerHTML = 
+                    '<span class="text-danger">Analysis failed. Please try again.</span>';
+                document.querySelector('.spinner-border').style.display = 'none';
+            } else {
+                // Update progress simulation
+                if (progress < 90) {
+                    progress += Math.random() * 5;
+                    document.getElementById('analysisProgress').style.width = progress + '%';
+                }
+                
+                // Update current step
+                if (progress > 25 && currentStep === 1) {
+                    updateStep(1, 'Extracting metadata');
+                    currentStep = 2;
+                } else if (progress > 50 && currentStep === 2) {
+                    updateStep(2, 'Detecting motion');
+                    currentStep = 3;
+                } else if (progress > 75 && currentStep === 3) {
+                    updateStep(3, 'Analyzing frames');
+                    currentStep = 4;
+                }
+                
+                document.getElementById('statusMessage').textContent = 
+                    steps[Math.min(currentStep - 1, steps.length - 1)] + '...';
+            }
+        })
+        .catch(error => {
+            console.error('Error checking status:', error);
+        });
+}
+
+function updateStep(stepNumber, stepText) {
+    const stepElement = document.getElementById(`step${stepNumber}`);
+    stepElement.innerHTML = `<i class="bi bi-check-circle text-success"></i> ${stepText}`;
+}
+
+// Check status every 2 seconds
+setInterval(checkAnalysisStatus, 2000);
+
+// Initial check
+checkAnalysisStatus();
+</script>
+{% endblock %}
