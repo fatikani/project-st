@@ -10,7 +10,6 @@ services:
     volumes:
       - ./uploads:/app/uploads
       - ./analysis_results:/app/analysis_results
-      - ./forensic_db.sqlite:/app/forensic_db.sqlite
     environment:
       - STREAMLIT_SERVER_PORT=8501
       - STREAMLIT_SERVER_ADDRESS=0.0.0.0
@@ -44,3 +43,4 @@ volumes:
   uploads:
   analysis_results:
   database:
+  

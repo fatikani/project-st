@@ -113,7 +113,10 @@ if 'uploaded_files' not in st.session_state:
 @st.cache_resource
 def init_database():
     """Initialize SQLite database for user management and analysis storage"""
-    conn = sqlite3.connect('forensic_db.sqlite', check_same_thread=False)
+    db_path = os.path.join(os.path.dirname(__file__), 'forensic_db.sqlite')
+    if not os.path.exists(db_path):
+        open(db_path, 'a').close()
+    conn = sqlite3.connect(db_path, check_same_thread=False)
     cursor = conn.cursor()
     
     # Users table

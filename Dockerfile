@@ -6,6 +6,9 @@ FROM python:3.9-slim
 # Set working directory
 WORKDIR /app
 
+# Ensure /app is writable for SQLite
+RUN chmod -R 777 /app
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     gcc \
@@ -17,15 +20,14 @@ RUN apt-get update && apt-get install -y \
     libgomp1 \
     libglib2.0-0 \
     libgtk-3-0 \
-    libgl1-mesa-glx \
+    libgl1 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for better caching
 COPY requirements.txt .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
+RUN pip install --default-timeout=100 --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 

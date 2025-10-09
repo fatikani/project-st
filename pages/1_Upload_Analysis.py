@@ -8,6 +8,9 @@ import tempfile
 import json
 from pathlib import Path
 import sys
+import pandas as pd
+
+from typing import Dict
 
 # Add the parent directory to the path to import our modules
 sys.path.append(str(Path(__file__).parent.parent))

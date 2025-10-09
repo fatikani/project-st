@@ -9,7 +9,7 @@ import utilities.custom_logger as cl
 import logging
 import time
 import os
-import allure
+# import allure
 
 
 class SeleniumDriver():
@@ -36,9 +36,9 @@ class SeleniumDriver():
             if not os.path.exists(destinationDirectory):
                 os.makedirs(destinationDirectory)
             self.driver.save_screenshot(destinationFile)
-            allure.attach(self.driver.get_screenshot_as_png(),
-                          name=fileName,
-                          attachment_type=allure.attachment_type.PNG)
+            # allure.attach(self.driver.get_screenshot_as_png(),
+            #               name=fileName,
+            #               attachment_type=allure.attachment_type.PNG)
             self.log.info("Screenshot save to directory: " + destinationFile)
         except:
             self.log.error("### Exception Occurred when taking screenshot")
