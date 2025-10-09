@@ -1,0 +1,11 @@
+# packages.txt
+# System packages needed for Streamlit Cloud deployment
+
+libgl1-mesa-glx
+libglib2.0-0
+libsm6
+libxext6
+libxrender-dev
+libgomp1
+libgtk-3-0
+ffmpeg
