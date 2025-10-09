@@ -1,4 +1,3 @@
-# System packages needed for Streamlit Cloud deployment
 libglib2.0-0
 libsm6
 libxext6
